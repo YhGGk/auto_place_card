@@ -10,7 +10,7 @@ class Gendoc():
     def add_document(self):
         # 创建一个新的 后台运行的 空白文档
         self.word = win32com.client.Dispatch('Word.Application')  # 打开word程序
-        self.word.Visible = 0  # 是否在后台运行word
+        self.word.Visible = 1  # 是否在后台运行word
         self.word.DisplayAlerts = 0  # 是否显示警告信息
         self.doc = self.word.Documents.Add()  # 创建一个新的word文档
 
@@ -41,7 +41,6 @@ class Gendoc():
     def generate_place_cards(self):
         # 为每个人逐个生成席卡
         row_index = 1
-        number_names_doc = 0
         for name in self.names:
             row = self.table.rows(row_index)
 
@@ -52,22 +51,34 @@ class Gendoc():
             # 在左边的单元格填入一个人名，并设置好格式
             cell = self.table.Cell(row_index, 1)
             cell.VerticalAlignment = 0  # 表格内文字与上边框对齐
+            cell.Borders.Enable = True  # 单元格所有边框开启
             range_ = cell.Range
             range_.Text = name  # 输入人名
-            range_.Orientation = 3 # 文字方向设置为向左
-            range_.ParagraphFormat.Alignment = 1 # 文字居中对齐
-            range_.ParagraphFormat.SpaceBefore = 2 * pf.pt_in_cm(3, 1) # 段前距设置
-            number_names_doc += len(name)
+            range_.Orientation = 3  # 文字方向设置为向左
+            range_.ParagraphFormat.Alignment = 1  # 文字居中对齐
+            range_.ParagraphFormat.SpaceBefore = 1 * pf.pt_in_cm(3, 1)  # 段前距设置
+            range_.ParagraphFormat.LineSpacing = 105  # 行距
+            range_.ParagraphFormat.LineSpacingRule = 4  # 行距规则：4为固定值
+
+            # 字体大小自适应
+            if len(name) >= len("一二三四") and len(name) <= len("一二三四五"):
+                range_.Font.Size = 100
 
             # 在右边的单元格填入一个人名，并设置好格式
             cell = self.table.Cell(row_index, 2)
             cell.VerticalAlignment = 0  # 表格内文字与上边框对齐
+            cell.Borders.Enable = True  # 单元格所有边框开启
             range_ = cell.Range
             range_.Text = name
             range_.Orientation = 2  # 文字方向设置为向右
             range_.ParagraphFormat.Alignment = 1  # 文字居中对齐
             range_.ParagraphFormat.SpaceBefore = 1 * pf.pt_in_cm(3, 1)  # 段前距设置
-            number_names_doc += len(name)
+            """range_.ParagraphFormat.LineSpacing = 105  # 行距
+            range_.ParagraphFormat.LineSpacingRule = 4  # 行距规则：4为固定值"""
+
+            # 字体大小自适应
+            if len(name) >= len("一二三四") and len(name) <= len("一二三四五"):
+                range_.Font.Size = 100
 
             row_index += 1
 
