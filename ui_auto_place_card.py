@@ -125,9 +125,14 @@ class Ui_Dialog(object):
         root.withdraw()
         file_path = filedialog.askopenfilename()
 
+        # 如果文件路径为空（点击取消时）则终止本次函数
+        if file_path[-3:] != 'xls' and file_path[-4:] != 'xlsx':
+            return
+        elif file_path == '':
+            return
+
         # 读取文件姓名，并形成列表
         workbook = xlrd.open_workbook(file_path)
-        # workbook = xlrd.open_workbook('names.xlsx')
         table = workbook.sheets()[0]
         row = table.nrows
         if row > 0:

@@ -30,7 +30,7 @@ class Gendoc():
 
     def generate_table(self):
         # 生成表格并调整列宽
-        self.table = self.range.Tables.Add(self.doc.Range(self.range.End, self.range.End), self.number_names, 2)   # 建一张表格
+        self.table = self.range.Tables.Add(self.doc.Range(self.range.End, self.range.End), self.number_names, 2)  # 建一张表格
 
         # 设置列宽
         column = self.table.columns(1)
@@ -56,13 +56,12 @@ class Gendoc():
             range_.Text = name  # 输入人名
             range_.Orientation = 3  # 文字方向设置为向左
             range_.ParagraphFormat.Alignment = 1  # 文字居中对齐
-            range_.ParagraphFormat.SpaceBefore = 1 * pf.pt_in_cm(3, 1)  # 段前距设置
-            range_.ParagraphFormat.LineSpacing = 105  # 行距
-            range_.ParagraphFormat.LineSpacingRule = 4  # 行距规则：4为固定值
 
             # 字体大小自适应
-            if len(name) >= len("一二三四") and len(name) <= len("一二三四五"):
+            if len(name) >= len("一二三四"):
                 range_.Font.Size = 100
+                range_.ParagraphFormat.LineSpacing = 100  # 行距
+                range_.ParagraphFormat.LineSpacingRule = 4  # 行距规则：4为固定值 3为最小值
 
             # 在右边的单元格填入一个人名，并设置好格式
             cell = self.table.Cell(row_index, 2)
@@ -72,13 +71,16 @@ class Gendoc():
             range_.Text = name
             range_.Orientation = 2  # 文字方向设置为向右
             range_.ParagraphFormat.Alignment = 1  # 文字居中对齐
-            range_.ParagraphFormat.SpaceBefore = 1 * pf.pt_in_cm(3, 1)  # 段前距设置
-            """range_.ParagraphFormat.LineSpacing = 105  # 行距
-            range_.ParagraphFormat.LineSpacingRule = 4  # 行距规则：4为固定值"""
 
             # 字体大小自适应
-            if len(name) >= len("一二三四") and len(name) <= len("一二三四五"):
+            if len(name) >= len("一二三四"):
                 range_.Font.Size = 100
+                range_.ParagraphFormat.LineSpacing = 100  # 行距
+                range_.ParagraphFormat.LineSpacingRule = 4  # 行距规则：4为固定值 3为最小值
+
+            # 单元格左右边距
+            self.table.RightPadding = 1.5 * pf.pt_in_cm(3, 1)
+            self.table.LeftPadding = 1.5 * pf.pt_in_cm(3, 1)
 
             row_index += 1
 
