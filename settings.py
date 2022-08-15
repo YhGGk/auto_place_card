@@ -14,9 +14,26 @@ class Settings():
         self.pagesetup.rightMargin = 0 * pf.pt_in_cm(3, 1)
 
         # 字体大小、名称
-        self.fontsize_less3 = 140  # 三字及以下的字体大小
-        self.fontsize_over3 = 100  # 超过三字的字体大小
-        self.fontname = "华文新魏"  # 字体名字
+        self.fonts = []
+
+        font = {'fontname': '华文新魏', 'fontsize_less3': 140, 'fontsize_over3': 100}  # 字体华文新魏
+        self.fonts.append(font)
+
+        font = {'fontname': '楷体', 'fontsize_less3': 140, 'fontsize_over3': 110}  # 字体楷体
+        self.fonts.append(font)
+
+        font = {'fontname': '仿宋_GB2312', 'fontsize_less3': 140, 'fontsize_over3': 110}  # 字体仿宋_GB2312
+        self.fonts.append(font)
+
+        font = {'fontname': '仿宋', 'fontsize_less3': 140, 'fontsize_over3': 110}  # 字体仿宋
+        self.fonts.append(font)
+
+        font = {'fontname': '宋体', 'fontsize_less3': 140, 'fontsize_over3': 100}  # 字体仿宋
+        self.fonts.append(font)
+
+        font = {'fontname': '黑体', 'fontsize_less3': 140, 'fontsize_over3': 110}  # 字体仿宋
+        self.fonts.append(font)
+
 
         # 席卡横向宽度、纵向高度
         self.tablewidth = 20 * pf.pt_in_cm(3, 1)
