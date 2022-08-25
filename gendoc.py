@@ -1,5 +1,9 @@
 import win32com.client
 import projectfunctions as pf
+import settings
+
+st = settings.Settings()
+
 
 class Gendoc():
 
@@ -16,7 +20,7 @@ class Gendoc():
 
     def doc_layout(self):
         # 整体文档页面设置
-        self.doc.PageSetup.Orientation = 0  # 页面设置1为横向2为纵向
+        self.doc.PageSetup.Orientation = 0  # 页面设置1为横向0为纵向
 
         # 页边距设置
         self.doc.PageSetup.TopMargin = 0 * pf.pt_in_cm(3, 1)

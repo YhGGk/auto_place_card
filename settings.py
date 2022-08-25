@@ -5,7 +5,7 @@ class Settings():
 
     def __int__(self):
         # 文档方向
-        self.pagesetup_orientation = 1  # 1表示横向，0表示纵向
+        self.pagesetup_orientation = 1  # 1表示横向 landscape，0表示纵向 portrait
 
         # 页边距值
         self.pagesetup.topMargin = 0 * pf.pt_in_cm(3, 1)
@@ -35,8 +35,8 @@ class Settings():
         self.fonts.append(font)
 
         # 席卡横向宽度、纵向高度
-        self.tablewidth = 20 * pf.pt_in_cm(3, 1)
-        self.tableheight = 9.25 * pf.pt_in_cm(3, 1)
+        self.tablewidth = {'portrait': 21 * pf.pt_in_cm(3, 1), 'landscape': 20 * pf.pt_in_cm(3, 1)}
+        self.tableheight = {'portrait': 9.25 * pf.pt_in_cm(3, 1), 'landscape': 9.25 * pf.pt_in_cm(3, 1)}
 
         # 是否需要自动适应字体大小
         self.auto_format = True
